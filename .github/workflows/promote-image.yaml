@@ -55,15 +55,15 @@ jobs:
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
-      id: cpr
+      id: create_pull_request
       with:
-        title: "PR title"
-        branch: update-image
-        commit-message: update backend image tag to ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
+        title: "Bump ${{github.event.inputs.deployment_name}} version"
+        branch: update-image-${{ github.event.inputs.deployment_name }}
+        commit-message: Update ${{ github.event.inputs.deployment_name }} image tag - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
 
-    # - name: Check outputs
-    #   if: ${{ steps.cpr.outputs.pull-request-number }}
-    #   run: |
-    #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-    #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+    - name: Check outputs
+      if: ${{ steps.create_pull_request.outputs.pull-request-number }}
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
