@@ -17,6 +17,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - env:
+        MESSAGE: ${{ github.event.client_payload.message }}
+        IMAGE: ${{ github.event.client_payload.image }}
+        SHA: ${{ github.event.client_payload.sha }}
+      run: |
+        echo $MESSAGE
+        echo $IMAGE
+        echo "$SHA"
+    
     # Checkout the source code in the repository
     - uses: actions/checkout@v3
 
