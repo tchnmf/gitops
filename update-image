@@ -6,19 +6,17 @@
 # DEPLOYMENT_NAME
 # DEPLOYMENT_ENV
 
+KUSTOMIZATION_FILE=$(find deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV -name kustomization.yaml)
 
-# IMAGE_NAME=registry.hub.docker.com/library/postgres
-# IMAGE_TAG='10.11'
-
-for i in $(echo $(yq  '.images | keys' kustomization.yaml -o c) | sed "s/,/ /g")
+for i in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g")
 do
     # call your procedure/other scripts here below
     echo "$i"
-    deployment=$(cat kustomization.yaml | yq ".images.$i |  select(.. == \"$IMAGE_NAME\")")
+    deployment=$(cat $KUSTOMIZATION_FILE | yq ".images.$i |  select(.. == \"$IMAGE_NAME\")")
 
     if [[  "${deployment}" ]]; then
         echo "Found - $i"
-        yq e -i ".images.$i.newTag = $IMAGE_TAG" kustomization.yaml
+        yq e -i ".images.$i.newTag = $IMAGE_TAG" $KUSTOMIZATION_FILE
     fi
 
     echo ""
