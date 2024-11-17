@@ -59,6 +59,7 @@ jobs:
         branch: update-image
         commit-message: update backend image tag to ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
+
     # - name: Check outputs
     #   if: ${{ steps.cpr.outputs.pull-request-number }}
     #   run: |
