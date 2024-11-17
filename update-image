@@ -32,7 +32,6 @@ done
 
 
 
-
 ## patch the fist image - busybox-api
 ##  yq-m e -i '.images.0.newTag = "3.7"' kustomization.yaml
 ##
