@@ -30,4 +30,4 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Print new image value
-      run: echo "New image is ${{github.event.inputs.image}}"New image is ${{github.event.inputs.image}}"
+      run: echo "New image is ${{github.event.inputs.image}}"
