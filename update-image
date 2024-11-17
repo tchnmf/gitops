@@ -12,7 +12,11 @@ if [ ! -d deployments/$DEPLOYMENT_NAME ]; then
   exit 1
 fi
 
-
+# Check current image tag
+if [ "$1" == 'check' ];then
+    check_version
+    exit 0
+fi
 
 KUSTOMIZATION=()
 
@@ -51,10 +55,19 @@ for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
     done
 done
 
+# requires KUSTOMIZATION_FILE
+function check_version () {
 
-
-
-
+    for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g")
+    do
+        # call
+        IMAGE_FOUND=$(cat $KUSTOMIZATION_FILE | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
+        if [[ "${IMAGE_FOUND}" ]]; then
+            IMAGE_TAG_CURRENT=$(yq ".images.0.newTag" $KUSTOMIZATION_FILE)
+            echo $IMAGE_TAG_CURRENT
+        fi
+    done
+} 
 
 
 
