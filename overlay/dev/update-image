@@ -5,7 +5,7 @@
 
 
 IMAGE_NAME=registry.hub.docker.com/library/postgres
-IMAGE_TAG='10.7'
+IMAGE_TAG='10.11'
 
 for i in $(echo $(yq  '.images | keys' kustomization.yaml -o c) | sed "s/,/ /g")
 do

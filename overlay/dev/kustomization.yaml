@@ -9,7 +9,7 @@ images:
     newTag: '3.6'
   - name: busybox-db-image
     newName: registry.hub.docker.com/library/postgres
-    newTag: 10.7
+    newTag: 10.11
   - name: busybox-cache-image
     newName: registry.hub.docker.com/library/redis
     newTag: '4.5'
