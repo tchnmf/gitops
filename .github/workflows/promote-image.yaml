@@ -53,6 +53,10 @@ jobs:
         echo $DEPLOYMENT_ENV
         ./update-image
 
+  open-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       id: cpr
