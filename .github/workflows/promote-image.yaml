@@ -38,7 +38,6 @@ jobs:
         echo "Deployment is ${{github.event.inputs.deployment_name}} in environment ${{github.event.inputs.deployment_env}}"
 
     - name: Replace the image_tag
-      uses: actions/checkout@v3
       env:
         IMAGE_NAME: ${{github.event.inputs.image_name}}
         IMAGE_TAG: ${{github.event.inputs.image_tag}}
@@ -50,3 +49,4 @@ jobs:
         echo $IMAGE_TAG
         echo $DEPLOYMENT_NAME
         echo $DEPLOYMENT_ENV
+        ./update-image
