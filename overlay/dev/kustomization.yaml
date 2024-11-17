@@ -1,18 +1,15 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 resources:
-- ../../base
-
+  - ../../base
 images:
-- name: busybox-api-image
-  newName: registry.hub.docker.com/library/busybox
-  newTag: '3.6'
-
-- name: busybox-db-image
-  newName: registry.hub.docker.com/library/postgres
-  newTag: '10.6'
-
-- name: busybox-cache-image
-  newName: registry.hub.docker.com/library/redis
-  newTag: '4.5'
+  - name: busybox-api-image
+    newName: registry.hub.docker.com/library/busybox
+    newTag: '3.6'
+  - name: busybox-db-image
+    newName: registry.hub.docker.com/library/postgres
+    newTag: 10.7
+  - name: busybox-cache-image
+    newName: registry.hub.docker.com/library/redis
+    newTag: '4.5'
