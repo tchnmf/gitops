@@ -1,0 +1,24 @@
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        required: true
+        description: A message describing why this workflow is being invoked
+      sha:
+        required: true
+        description: The short hash of the commit the invoked this workflow
+      image:
+        required: true
+        description: The new image, e.g quay.
+
+        
+jobs:
+  update-image-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the source code in the repository
+    - uses: actions/checkout@v3
+
+    - name: Print new image value
+      run: echo "New image is ${{github.event.inputs.image}}"New image is ${{github.event.inputs.image}}"
