@@ -36,3 +36,16 @@ jobs:
       run: |
         echo "New image is ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}"
         echo "Deployment is ${{github.event.inputs.deployment_name}} in environment ${{github.event.inputs.deployment_env}}"
+
+    - name: Replace the image_tag
+      env:
+        IMAGE_NAME: ${{github.event.inputs.image_name}}
+        IMAGE_TAG: ${{github.event.inputs.image_tag}}
+        DEPLOYMENT_NAME: ${{github.event.inputs.deployment_name}}
+        DEPLOYMENT_ENV: ${{github.event.inputs.deployment_env}}
+
+      run: |
+        echo $IMAGE_NAME
+        echo $IMAGE_TAG
+        echo $DEPLOYMENT_NAME
+        echo $DEPLOYMENT_ENV
