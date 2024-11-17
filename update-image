@@ -1,19 +1,31 @@
 #!/bin/bash
 
-
 # IMAGE_NAME
 # IMAGE_TAG
 # DEPLOYMENT_NAME
 # DEPLOYMENT_ENV
 
 
+# Check - deployment name exists in path
+if [ ! -d deployments/$DEPLOYMENT_NAME ]; then
+  echo -e "# Error: Deployment deployments/$DEPLOYMENT_NAME does not exist.\n"
+  exit 1
+fi
+
+
+
 KUSTOMIZATION=()
 
-# 'production is catch-all for all production environments'
+# 'production is catch-all for all production environments. List them here'
 if [ $DEPLOYMENT_ENV == 'production' ];then
     KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-a -name kustomization.yaml))
     KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-b -name kustomization.yaml))
 else
+    # Check - environment (deployment_id) exists in path
+    if [ ! -d deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV ]; then
+        echo -e "# Error: Environment deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV does not exist.\n"
+        exit 1
+    fi
     KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV -name kustomization.yaml))
 fi
 
