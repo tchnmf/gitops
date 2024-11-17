@@ -1,9 +1,9 @@
+name: dev
+
 on:
   repository_dispatch:
     types: 
       - test_result
-      - workflow_dispatch
-
 jobs:
   run_if_failure:
     runs-on: ubuntu-latest
