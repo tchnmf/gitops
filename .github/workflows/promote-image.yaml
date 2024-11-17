@@ -65,5 +65,5 @@ jobs:
     - name: Check outputs
       if: ${{ steps.create_pull_request.outputs.pull-request-number }}
       run: |
-        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        echo "Pull Request Number - ${{ steps.create_pull_request.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.create_pull_request.outputs.pull-request-url }}"
