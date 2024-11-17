@@ -32,5 +32,7 @@ jobs:
     # Checkout the source code in the repository
     - uses: actions/checkout@v3
 
-    - name: Print new image value
-      run: echo "New image is ${{github.event.inputs.image_name}}"
+    - name: Print new image information
+      run: |
+        echo "New image is ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}"
+        echo "Deployment is ${{github.event.inputs.deployment_name}} in environment ${{github.event.inputs.deployment_env}}"

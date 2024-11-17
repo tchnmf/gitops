@@ -1,0 +1,54 @@
+#!/bin/bash
+
+
+
+
+
+IMAGE_NAME=registry.hub.docker.com/library/postgres
+IMAGE_TAG='10.11'
+
+for i in $(echo $(yq  '.images | keys' kustomization.yaml -o c) | sed "s/,/ /g")
+do
+    # call your procedure/other scripts here below
+    echo "$i"
+    deployment=$(cat kustomization.yaml | yq ".images.$i |  select(.. == \"$IMAGE_NAME\")")
+
+    if [[  "${deployment}" ]]; then
+        echo "Found - $i"
+        yq e -i ".images.$i.newTag = $IMAGE_TAG" kustomization.yaml
+    fi
+
+    echo ""
+
+done
+
+
+
+
+
+
+
+
+
+
+
+## patch the fist image - busybox-api
+##  yq-m e -i '.images.0.newTag = "3.7"' kustomization.yaml
+##
+## Find the key holding the image name using select
+##
+##   yq '.images.[] | select(.. == "registry.hub.docker.com/library/busybox")' kustomization.yaml
+
+# for i in $(echo $(yq  '.images | keys' kustomization.yaml -o c) | sed "s/,/ /g")
+# do
+#     # call your procedure/other scripts here below
+#     echo "$i" && cat kustomization.yaml | yq ".images.$i |  select(.. == \"registry.hub.docker.com/library/busybox\")"
+# done
+
+
+# IMAGE=registry.hub.docker.com/library/redis
+# for i in $(echo $(yq  '.images | keys' kustomization.yaml -o c) | sed "s/,/ /g")
+# do
+#     # call your procedure/other scripts here below
+#     echo "$i" && cat kustomization.yaml | yq ".images.$i |  select(.. == \"$IMAGE\")"
+# done
