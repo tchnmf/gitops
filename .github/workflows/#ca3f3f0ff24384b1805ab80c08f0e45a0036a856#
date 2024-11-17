@@ -1,0 +1,68 @@
+on:
+  workflow_dispatch:
+    inputs:
+      image_name:
+        required: true
+        description: Full image URL - registry.hub.docker.com/library/busybox
+      image_tag:
+        required: true
+        description: The image_tag to be promoted
+      deployment_name:
+        required: true
+        description: The deployment in k8s-wb/deployments/<deployment>
+      deployment_env:
+        required: true
+        description: The environment in k8s-wb/deployments/deployment/deployment_id/<environment>
+
+        
+jobs:
+  update-image-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+    - env:
+        MESSAGE: ${{ github.event.inputs.message }}
+        IMAGE: ${{ github.event.inputs.image }}
+        SHA: ${{ github.event.inputs.sha }}
+      run: |
+        echo $MESSAGE
+        echo $IMAGE
+        echo "$SHA"
+    
+    # Checkout the source code in the repository
+    - uses: actions/checkout@v3
+
+    - name: Print new image information
+      run: |
+        echo "New image is ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}"
+        echo "Deployment is ${{github.event.inputs.deployment_name}} in environment ${{github.event.inputs.deployment_env}}"
+
+    - name: Replace the image_tag
+      env:
+        IMAGE_NAME: ${{github.event.inputs.image_name}}
+        IMAGE_TAG: ${{github.event.inputs.image_tag}}
+        DEPLOYMENT_NAME: ${{github.event.inputs.deployment_name}}
+        DEPLOYMENT_ENV: ${{github.event.inputs.deployment_env}}
+
+      run: |
+        echo $IMAGE_NAME
+        echo $IMAGE_TAG
+        echo $DEPLOYMENT_NAME
+        echo $DEPLOYMENT_ENV
+        ./update-image
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v6
+      id: cpr
+      with:
+        title: "PR title"
+        branch: update-image
+        commit-message: update backend image tag to ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
+        token: ${{ secrets.GH_TOKEN }}
+
+    # - name: Check outputs
+    #   if: ${{ steps.cpr.outputs.pull-request-number }}
+    #   run: |
+    #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+    #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+ 

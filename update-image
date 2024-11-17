@@ -6,23 +6,37 @@
 # DEPLOYMENT_NAME
 # DEPLOYMENT_ENV
 
-KUSTOMIZATION_FILE=$(find deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV -name kustomization.yaml)
 
-for i in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g")
-do
-    # call your procedure/other scripts here below
-    echo "$i"
-    deployment=$(cat $KUSTOMIZATION_FILE | yq ".images.$i |  select(.. == \"$IMAGE_NAME\")")
+KUSTOMIZATION=()
 
-    if [[  "${deployment}" ]]; then
-        echo "Found - $i"
-        yq e -i ".images.$i.newTag = $IMAGE_TAG" $KUSTOMIZATION_FILE
-    fi
+if [ $DEPLOYMENT_ENV == 'production' ];then
+    KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-a -name kustomization.yaml))
+    KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-b -name kustomization.yaml))
+else
+    KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV -name kustomization.yaml))
+fi
 
-    echo ""
 
+
+echo -e "# Preparing to update deployments/$DEPLOYMENT_NAME in $DEPLOYMENT_ENV"
+echo -e "# Bump image $IMAGE_NAME to version === $IMAGE_TAG ===\n"
+echo -e "# Files to update:"
+printf "# - %s\n" "${KUSTOMIZATION[@]}"
+echo ""
+
+for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
+
+    for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g")
+    do
+        # call
+        IMAGE_FOUND=$(cat $KUSTOMIZATION_FILE | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
+        if [[ "${IMAGE_FOUND}" ]]; then
+            echo "# Patching $KUSTOMIZATION_FILE"
+            yq e -i ".images.$image.newTag = $IMAGE_TAG" $KUSTOMIZATION_FILE
+            echo -e '# Done.\n'
+        fi
+    done
 done
-
 
 
 
