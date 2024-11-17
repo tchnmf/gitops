@@ -9,6 +9,7 @@
 
 KUSTOMIZATION=()
 
+# 'production is catch-all for all production environments'
 if [ $DEPLOYMENT_ENV == 'production' ];then
     KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-a -name kustomization.yaml))
     KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-b -name kustomization.yaml))

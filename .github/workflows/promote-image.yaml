@@ -12,7 +12,9 @@ on:
         description: The deployment in k8s-wb/deployments/<deployment>
       deployment_env:
         required: true
-        description: The environment in k8s-wb/deployments/deployment/deployment_id/<environment>
+        description: |
+          The environment in k8s-wb/deployments/deployment/deployment_id/<environment>
+          'production' is catch-all for all regional clusters
 
         
 jobs:
