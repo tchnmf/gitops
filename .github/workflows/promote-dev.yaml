@@ -18,9 +18,9 @@ jobs:
 
     steps:
     - env:
-        MESSAGE: ${{ github.event.client_payload.message }}
-        IMAGE: ${{ github.event.client_payload.image }}
-        SHA: ${{ github.event.client_payload.sha }}
+        MESSAGE: ${{ github.event.inputs.message }}
+        IMAGE: ${{ github.event.inputs.image }}
+        SHA: ${{ github.event.inputs.sha }}
       run: |
         echo $MESSAGE
         echo $IMAGE
