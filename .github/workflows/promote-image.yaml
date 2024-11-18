@@ -26,6 +26,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Check the current image_tag
+      id: check
       env:
         IMAGE_NAME: ${{github.event.inputs.image_name}}
         IMAGE_TAG: ${{github.event.inputs.image_tag}}
@@ -33,11 +34,9 @@ jobs:
         DEPLOYMENT_ENV: ${{github.event.inputs.deployment_env}}
 
       run: |
-        echo "# Updating $DEPLOYMENT_NAME/$DEPLOYMENT_ENV"
-        echo "# New image $IMAGE_NAME:$IMAGE_TAG"
-        echo "# Current image version:"
         ./update-image check
-
+      outputs:
+        - ${{ steps.check.outputs.check }}
 
   update-image-tag:
     runs-on: ubuntu-latest
