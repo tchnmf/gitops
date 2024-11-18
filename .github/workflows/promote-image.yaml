@@ -20,6 +20,8 @@ on:
 jobs:
   check-image-tag-dev:
     runs-on: ubuntu-latest
+    outputs:
+      - ${{ steps.check.outputs.check }}
 
     steps:
     # Checkout the source code in the repository
@@ -35,8 +37,6 @@ jobs:
 
       run: |
         ./update-image check
-      outputs:
-        - ${{ steps.check.outputs.check }}
 
   update-image-tag:
     runs-on: ubuntu-latest
