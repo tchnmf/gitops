@@ -45,7 +45,7 @@ jobs:
 
     steps:
     - env:
-        IMAGE: ${{needs.check-current-tag.outputs.check}}
+        IMAGE: ${{jobs.check-current-tag.outputs}}
       run: |
         echo "$IMAGE"
 
