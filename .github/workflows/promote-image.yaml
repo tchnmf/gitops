@@ -33,10 +33,9 @@ jobs:
         DEPLOYMENT_ENV: ${{github.event.inputs.deployment_env}}
 
       run: |
-        echo $IMAGE_NAME
-        echo $IMAGE_TAG
-        echo $DEPLOYMENT_NAME
-        echo $DEPLOYMENT_ENV
+        echo "# Updating $DEPLOYMENT_NAME/$DEPLOYMENT_ENV"
+        echo "# New image $IMAGE_NAME:$IMAGE_TAG"
+        echo "# Current image version:"
         ./update-image check
 
 
