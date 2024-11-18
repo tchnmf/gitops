@@ -18,7 +18,7 @@ on:
 
         
 jobs:
-  check-image-tag-dev
+  check-image-tag-dev:
     runs-on: ubuntu-latest
 
     steps:
