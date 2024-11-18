@@ -45,14 +45,10 @@ jobs:
 
     steps:
     - env:
-        MESSAGE: ${{ github.event.inputs.message }}
-        IMAGE: ${{ github.event.inputs.image }}
-        SHA: ${{ github.event.inputs.sha }}
+        IMAGE: ${{needs.check-current-tag.outputs.check}}
       run: |
-        echo $MESSAGE
-        echo $IMAGE
-        echo "$SHA"
-    
+        echo "$IMAGE"
+
     # Checkout the source code in the repository
     - uses: actions/checkout@v3
 
