@@ -12,11 +12,6 @@ if [ ! -d deployments/$DEPLOYMENT_NAME ]; then
   exit 1
 fi
 
-# Check current image tag
-if [ "$1" == 'check' ];then
-    check_version
-    exit 0
-fi
 
 KUSTOMIZATION=()
 
@@ -33,18 +28,20 @@ else
     KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV -name kustomization.yaml))
 fi
 
+# requires KUSTOMIZATION_FILE
+function check_version () {
+    for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g"); do
+        # call
+        IMAGE_FOUND=$(cat $KUSTOMIZATION_FILE | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
+        if [[ "${IMAGE_FOUND}" ]]; then
+            IMAGE_TAG_CURRENT=$(yq ".images.0.newTag" $KUSTOMIZATION_FILE)
+            # echo $IMAGE_TAG_CURRENT
+        fi
+    done
+}
 
-
-echo -e "# Preparing to update deployments/$DEPLOYMENT_NAME in $DEPLOYMENT_ENV"
-echo -e "# Bump image $IMAGE_NAME to version === $IMAGE_TAG ===\n"
-echo -e "# Files to update:"
-printf "# - %s\n" "${KUSTOMIZATION[@]}"
-echo ""
-
-for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
-
-    for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g")
-    do
+function update_version () {
+    for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g"); do
         # call
         IMAGE_FOUND=$(cat $KUSTOMIZATION_FILE | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
         if [[ "${IMAGE_FOUND}" ]]; then
@@ -53,21 +50,48 @@ for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
             echo -e '# Done.\n'
         fi
     done
-done
+}
 
-# requires KUSTOMIZATION_FILE
-function check_version () {
-
-    for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g")
-    do
-        # call
-        IMAGE_FOUND=$(cat $KUSTOMIZATION_FILE | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
-        if [[ "${IMAGE_FOUND}" ]]; then
-            IMAGE_TAG_CURRENT=$(yq ".images.0.newTag" $KUSTOMIZATION_FILE)
-            echo $IMAGE_TAG_CURRENT
-        fi
+if [ "$1" == 'check' ];then
+    for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
+        check_version
     done
-} 
+    exit 0
+fi
+
+if [ "$1" == 'update' ];then
+
+    for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
+        check_version
+    done
+
+    echo -e "# Preparing to update deployments/$DEPLOYMENT_NAME in $DEPLOYMENT_ENV"
+    echo -e "# Bump image $IMAGE_NAME to version === $IMAGE_TAG ===\n"
+    echo -e "# Files to update:"
+    printf "# - %s\n" "${KUSTOMIZATION[@]}"
+    echo ""
+
+    for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
+        if [ "$IMAGE_TAG" == "$IMAGE_TAG_CURRENT" ]; then
+            echo "# Image tag $IMAGE_TAG matches deployment $IMAGE_NAME:$IMAGE_TAG_CURRENT"
+            exit 0
+        fi
+        echo -e "# Image $IMAGE_NAME\n# +++  $IMAGE_NAME:$IMAGE_TAG\n# ---  $IMAGE_NAME:$IMAGE_TAG_CURRENT\n#"
+        update_version
+    done
+    exit 0
+fi
+
+
+
+
+
+
+
+
+
+
+
 
 
 
