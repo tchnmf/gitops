@@ -44,10 +44,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - env:
-        IMAGE: ${{needs.jobs.check-current-tag.outputs}}
-      run: |
-        echo "$IMAGE"
+    - run: |
+        echo ${{needs.check-current-tag.outputs.check}}
 
     # Checkout the source code in the repository
     - uses: actions/checkout@v3
