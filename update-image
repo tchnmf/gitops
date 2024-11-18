@@ -7,7 +7,7 @@
 
 
 # Check - deployment name exists in path
-if [ ! -d deployments/$DEPLOYMENT_NAME ]; then
+if [ ! -d deployments/"$DEPLOYMENT_NAME" ]; then
   echo -e "# Error: Deployment deployments/$DEPLOYMENT_NAME does not exist.\n"
   exit 1
 fi
@@ -16,12 +16,12 @@ fi
 KUSTOMIZATION=()
 
 # 'production is catch-all for all production environments. List them here'
-if [ $DEPLOYMENT_ENV == 'production' ];then
-    KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-a -name kustomization.yaml))
-    KUSTOMIZATION+=($(find deployments/$DEPLOYMENT_NAME/deployment_id/prod-b -name kustomization.yaml))
+if [ "$DEPLOYMENT_ENV" == 'production' ];then
+    KUSTOMIZATION+=("$(find deployments/"$DEPLOYMENT_NAME"/deployment_id/prod-a -name kustomization.yaml)")
+    KUSTOMIZATION+=("$(find deployments/"$DEPLOYMENT_NAME"/deployment_id/prod-b -name kustomization.yaml)")
 else
     # Check - environment (deployment_id) exists in path
-    if [ ! -d deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV ]; then
+    if [ ! -d deployments/"$DEPLOYMENT_NAME"/deployment_id/"$DEPLOYMENT_ENV" ]; then
         echo -e "# Error: Environment deployments/$DEPLOYMENT_NAME/deployment_id/$DEPLOYMENT_ENV does not exist.\n"
         exit 1
     fi
@@ -43,10 +43,10 @@ function check_version () {
 function update_version () {
     for image in $(echo $(yq  '.images | keys' $KUSTOMIZATION_FILE -o c) | sed "s/,/ /g"); do
         # call
-        IMAGE_FOUND=$(cat $KUSTOMIZATION_FILE | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
+        IMAGE_FOUND=$(cat "$KUSTOMIZATION_FILE" | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
         if [[ "${IMAGE_FOUND}" ]]; then
             echo "# Patching $KUSTOMIZATION_FILE"
-            yq e -i ".images.$image.newTag = $IMAGE_TAG" $KUSTOMIZATION_FILE
+            yq e -i ".images.$image.newTag = $IMAGE_TAG" "$KUSTOMIZATION_FILE"
             echo -e '# Done.\n'
         fi
     done
