@@ -37,16 +37,14 @@ jobs:
       run: |
         echo ""
         echo "# Check $IMAGE_NAME version in $DEPLOYMENT_ENV"
-        IMAGE_TAG_CURRENT=$(./update-image check)
-        echo $IMAGE_TAG_CURRENT
-        echo "image_tag_current=$IMAGE_TAG_CURRENT">> "$GITHUB_OUTPUT"
+        echo "image_tag_current=$((./update-image check)">> "$GITHUB_OUTPUT"
 
   update-image-tag:
     runs-on: ubuntu-latest
 
     steps:
     - run: |
-        echo ${{needs.check-current-tag.outputs.image_tag_current}}
+        echo ${{ needs.check-current-tag.outputs.image_tag_current }}
 
     # Checkout the source code in the repository
     - uses: actions/checkout@v3
