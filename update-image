@@ -56,7 +56,7 @@ if [ "$1" == 'check' ];then
     for KUSTOMIZATION_FILE in "${KUSTOMIZATION[@]}";do
         check_version
     done
-    echo "$IMAGE_NAME:$IMAGE_TAG_CURRENT"
+    echo "CURRENT_VERSION=$IMAGE_NAME:$IMAGE_TAG_CURRENT"
     exit 0
 fi
 
