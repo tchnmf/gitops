@@ -21,24 +21,23 @@ jobs:
   check-current-tag:
     runs-on: ubuntu-latest
     outputs:
-      check: ${{ steps.check.outputs.check }}
+      check: ${{ steps.check_version.outputs.check }}
 
     steps:
     # Checkout the source code in the repository
     - uses: actions/checkout@v3
 
     - name: Check the current image_tag
-      id: check
+      id: check_version
       env:
         IMAGE_NAME: ${{github.event.inputs.image_name}}
         IMAGE_TAG: ${{github.event.inputs.image_tag}}
         DEPLOYMENT_NAME: ${{github.event.inputs.deployment_name}}
         DEPLOYMENT_ENV: ${{github.event.inputs.deployment_env}}
-
       run: |
         echo ""
         echo "# Check $IMAGE_NAME version in $DEPLOYMENT_ENV"
-        ./update-image check
+        ./update-image check >> "$GITHUB_OUTPUT"
 
   update-image-tag:
     runs-on: ubuntu-latest
@@ -69,6 +68,7 @@ jobs:
         echo $DEPLOYMENT_ENV
         ./update-image update
 
+    # TODO: condition on change
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       id: create_pull_request
