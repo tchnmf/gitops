@@ -21,7 +21,7 @@ jobs:
   check-image-tag-dev:
     runs-on: ubuntu-latest
     outputs:
-      - ${{ steps.check.outputs.check }}
+      check: ${{ steps.check.outputs.check }}
 
     steps:
     # Checkout the source code in the repository
