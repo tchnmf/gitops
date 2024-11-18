@@ -21,7 +21,7 @@ jobs:
   check-current-tag:
     runs-on: ubuntu-latest
     outputs:
-      image_tag_current: ${{ steps.check_version.outputs.check }}
+      image_tag_current: ${{ steps.check_version.outputs.image_tag_current }}
 
     steps:
     # Checkout the source code in the repository
@@ -38,6 +38,7 @@ jobs:
         echo ""
         echo "# Check $IMAGE_NAME version in $DEPLOYMENT_ENV"
         IMAGE_TAG_CURRENT=$(./update-image check)
+        echo $IMAGE_TAG_CURRENT
         echo "image_tag_current=$IMAGE_TAG_CURRENT">> "$GITHUB_OUTPUT"
 
   update-image-tag:
