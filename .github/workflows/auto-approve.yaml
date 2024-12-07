@@ -4,8 +4,8 @@ name: Auto-approve Pull request against [dev]
 on:
   pull_request_review:
     types: [submitted]
-    branches:
-    - dev
+    #branches:
+    #- dev
 
 jobs:
   approved:
