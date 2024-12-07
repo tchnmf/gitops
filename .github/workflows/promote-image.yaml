@@ -77,7 +77,7 @@ jobs:
         branch: update-image-${{ github.event.inputs.deployment_name }}
         commit-message: Update ${{ github.event.inputs.deployment_name }} image tag - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
-        labels: ${{ github.event.inputs.deployment_env }}, 'promotion'
+        labels: ${{ github.event.inputs.deployment_env }}, cicd
           
     - name: Check outputs
       if: ${{ steps.create_pull_request.outputs.pull-request-number }}
