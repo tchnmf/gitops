@@ -73,7 +73,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       id: create_pull_request
       with:
-        title: "Bump ${{github.event.inputs.deployment_name}} version"
+        title: "Bump ${{github.event.inputs.deployment_name}} version - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}"
         branch: update-image-${{ github.event.inputs.deployment_name }}
         commit-message: Update ${{ github.event.inputs.deployment_name }} image tag - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
