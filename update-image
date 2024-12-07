@@ -46,7 +46,6 @@ function update_version () {
         IMAGE_FOUND=$(cat "$KUSTOMIZATION_FILE" | yq ".images.$image |  select(.. == \"$IMAGE_NAME\")")
         if [[ "${IMAGE_FOUND}" ]]; then
             echo "# Patching $KUSTOMIZATION_FILE"
-            #yq e -i ".images.$image.newTag = $IMAGE_TAG" "$KUSTOMIZATION_FILE"
             yq e -i ".images.$image.newTag = \"$IMAGE_TAG\"" "$KUSTOMIZATION_FILE"
 
             echo -e '# Done.\n'
