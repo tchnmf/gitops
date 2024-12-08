@@ -100,6 +100,6 @@ jobs:
       uses: juliangruber/approve-pull-request-action@v2
       if: ${{ github.event.inputs.deployment_env }} == 'dev'
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GH_TOKEN }}
         number: ${{ steps.create_pull_request.outputs.pull-request-number }}
   
