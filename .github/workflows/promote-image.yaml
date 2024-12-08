@@ -80,7 +80,9 @@ jobs:
         branch: feat/deployment-update
         commit-message: Update ${{ github.event.inputs.deployment_name }} image tag - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
-        labels: ${{ github.event.inputs.deployment_env }}, cicd
+        labels:
+          environment:${{ github.event.inputs.deployment_env }}
+          cicd
         delete-branch: true
 
           
