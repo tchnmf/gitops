@@ -39,7 +39,7 @@ jobs:
         echo "# Check $IMAGE_NAME version in $DEPLOYMENT_ENV"
         ./update-image check >> "$GITHUB_OUTPUT"
 
-  update-image-tag:
+  update-pull-request:
     runs-on: ubuntu-latest
 
     steps:
