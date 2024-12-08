@@ -90,7 +90,7 @@ jobs:
           image_placeholder="${{ github.event.inputs.image_placeholder }}"
           deployment="${{ github.event.inputs.deployment_name }}"
           ```
-    - name: Check outputs
+    - name: Pull Request outputs
       if: ${{ steps.create_pull_request.outputs.pull-request-number }}
       run: |
         echo "Pull Request Number - ${{ steps.create_pull_request.outputs.pull-request-number }}"
