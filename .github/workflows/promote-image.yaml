@@ -22,7 +22,7 @@ on:
         
 jobs:
   test:
-    name: Test in ${{github.event.inputs.deployment_env}}
+    name: Test ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}} in ${{github.event.inputs.deployment_env}}
     runs-on: ubuntu-latest
     outputs:
       image_tag_current: ${{ steps.check_version.outputs.image_tag_current }}
@@ -44,7 +44,7 @@ jobs:
         ./update-image check >> "$GITHUB_OUTPUT"
 
   pull-request:
-    name: Submit Pull request in ${{github.event.inputs.deployment_env}}
+    name: Submit Pull request
     runs-on: ubuntu-latest
 
     steps:
