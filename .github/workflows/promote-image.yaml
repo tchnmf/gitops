@@ -4,9 +4,12 @@ on:
       image_placeholder:
         required: true
         description: Image placeholder reference, ie. 'busybox-api'
-      image_release:
+      image_name:
         required: true
-        description: The image_name:image_tag to be promoted
+        description: The image_name to get promoted
+      image_tag:
+        required: true
+        description: The image_name to get promoted
       deployment_name:
         required: true
         description: The deployment in k8s-wb/deployments/<deployment>
