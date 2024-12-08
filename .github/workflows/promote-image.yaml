@@ -76,7 +76,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       id: create_pull_request
       with:
-        title: "Promote deployment | ${{github.event.inputs.deployment_name}}/${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}"
+        title: "Promote deployment | ${{github.event.inputs.deployment_name}}/${{github.event.inputs.image_placeholder }}:${{github.event.inputs.image_tag}}"
         branch: feat/cicd-promotion-${{ github.event.inputs.deployment_name }}
         commit-message: Promote to ${{ github.event.inputs.deployment_env }} | deployments/${{ github.event.inputs.deployment_name }} image  - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
