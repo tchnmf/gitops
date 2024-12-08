@@ -13,4 +13,4 @@ jobs:
     - name : Print Body of PR
       env:
           BODY: ${{ github.event.pull_request.body }}
-      run: echo The Body of your PR is $BODY
+      run: echo $BODY | tr ' ' '\n'
