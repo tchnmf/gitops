@@ -10,3 +10,9 @@ jobs:
     steps:
     - run: |
         echo The PR was merged
+
+    - name : Print Title of PR
+      run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+
+    - name : Print Description of PR
+      run: echo The Title of your PR is ${{ github.event.pull_request.body }}
