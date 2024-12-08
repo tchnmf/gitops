@@ -9,7 +9,7 @@ jobs:
     #if: github.event.pull_request.merged == true
     #if: github.event.pull_request.merged == true && github.event.pull_request.label.name == 'cicd'
     #if: ${{ github.event.pull_request.label.name == 'cicd' }}
-    if: contains(github.event.pull_request.labels.*.name, 'cicd')
+    if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - run: |
