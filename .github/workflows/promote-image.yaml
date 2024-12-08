@@ -96,10 +96,10 @@ jobs:
         echo "Pull Request Number - ${{ steps.create_pull_request.outputs.pull-request-number }}"
         echo "Pull Request URL - ${{ steps.create_pull_request.outputs.pull-request-url }}"
         
-    - name: Approve Pull Request in dev
-      uses: juliangruber/approve-pull-request-action@v2
-      if: ${{ github.event.inputs.deployment_env }} == 'dev'
-      with:
-        github-token: ${{ secrets.GH_TOKEN }}
-        number: ${{ steps.create_pull_request.outputs.pull-request-number }}
+ #   - name: Approve Pull Request in dev
+ #     uses: juliangruber/approve-pull-request-action@v2
+ #      if: ${{ github.event.inputs.deployment_env }} == 'dev'
+ #      with:
+ #        github-token: ${{ secrets.GH_TOKEN }}
+ #        number: ${{ steps.create_pull_request.outputs.pull-request-number }}
   
