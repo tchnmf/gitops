@@ -78,7 +78,7 @@ jobs:
       with:
         title: "Promote deployment | ${{github.event.inputs.deployment_name}}/${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}"
         branch: feat/cicd-promotion-${{ github.event.inputs.deployment_name }}
-        commit-message: Update ${{ github.event.inputs.deployment_name }} image tag - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
+        commit-message: Promote to ${{ github.event.inputs.deployment_env }} | deployments/${{ github.event.inputs.deployment_name }} image  - ${{github.event.inputs.image_name}}:${{github.event.inputs.image_tag}}
         token: ${{ secrets.GH_TOKEN }}
         labels: ${{ github.event.inputs.deployment_env }},cicd,deployment:${{ github.event.inputs.deployment_name }}
         delete-branch: true
