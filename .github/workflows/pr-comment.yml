@@ -18,9 +18,7 @@ jobs:
       run: |
         ARTIFACT_URL=$(echo '${{ github.event.issue.body }}' | tail -1)
         export ARTIFACT_URL
-        
-    - name: Download artifact URL
-      run: | 
+    
         curl -L \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
