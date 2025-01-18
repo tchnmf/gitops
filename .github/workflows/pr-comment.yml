@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Retrieve artifact URL 
       run: |
-        echo ${{ github.event.issue.body }} sed '$!d'
+        echo ${{ github.event.issue.body }} | sed '$!d'
         
         
 #    - name: Show artifact URL 
