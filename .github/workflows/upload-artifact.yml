@@ -40,8 +40,8 @@ jobs:
     needs: upload-artifact
     steps:
       - env:
-          ARTIFACT_ID: ${{needs.upload-artifact.outputs.artifact-id}}
-          ARTIFACT_URL: ${{needs.upload-artifact.outputs.artifact-url}}
+          ARTIFACT_ID: ${{ needs.upload-artifact.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ needs.upload-artifact.outputs.artifact-url }}
 
         run: | 
           echo "Artifact ID from previous job is $ARTIFACT_ID"
