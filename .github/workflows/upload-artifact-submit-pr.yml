@@ -13,11 +13,8 @@ on:
         type: string
 
 jobs:
-  upload-artifact:
+  submit-pull-request:
     runs-on: ubuntu-latest
-    outputs:
-      artifact-id: ${{ steps.artifact-upload-step.outputs.artifact-id }}
-      artifact-url: ${{ steps.artifact-upload-step.outputs.artifact-url }}
 
     steps:
       - uses: actions/checkout@v4
@@ -25,30 +22,24 @@ jobs:
       - run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
-          
-      - uses: actions/upload-artifact@v4
-        id: upload-artifact
-        with:
-          path: payload.json
-          name: payload-${{ github.sha }}.json
-          
-      - name: Output artifact ID
-        run: |
-          echo 'Artifact ID is ${{ steps.upload-artifact.outputs.artifact-id }}'          
-          echo 'Artifact URL is ${{ steps.upload-artifact.outputs.artifact-url }}'
+          export deployment=$(cat payload.json | jq  '.[0].deployment)
+          echo "deployment=$deployment" >> $GITHUB_ENV
           
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: cicd/release
-          token: ${{ secrets.GH_TOKEN }}
+          branch: cicd/bump-${{ env.deployment }}
           delete-branch: true
-          title: '[Example] PR with artifact URL'
+          title: '[Example] Promote to dev'
+          token: ${{ secrets.GH_TOKEN }}
+          labels: |
+            cicd
+            dev1
           body: |
             Release PR
+            
             ```
             ${{ inputs.payload }}
             ```
-            ${{ steps.upload-artifact.outputs.artifact-url }}
-          labels: |
-            cicd
+            
+          
