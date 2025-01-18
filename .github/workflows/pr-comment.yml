@@ -16,5 +16,4 @@ jobs:
     steps:
     - name: Run a multi-line script 
       run: |
-        echo  "Comment body: ${{ github.event.comment.body }}"
-        echo  "PR body: ${{ github.event.issue.body }}" | awk '{ print $NF }'
+        echo  "PR body: ${{ github.event.issue.body }}" | tail -1
