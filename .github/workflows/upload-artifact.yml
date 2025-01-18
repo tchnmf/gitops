@@ -10,6 +10,7 @@ on:
       payload:
         description: 'Json payload'
         required: true
+        type: string
 
 jobs:
   parse-payload:
