@@ -16,5 +16,5 @@ jobs:
     steps:
     - name: Run a multi-line script 
       run: |
-        artifact_url=$(echo ${{ github.event.issue.body }}" | tail -1)
+        artifact_url=$(echo ${{ github.event.issue.body }} | tail -1)
         echo $artifact_url
