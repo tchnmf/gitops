@@ -21,7 +21,7 @@ jobs:
           cat payload.json | jq
           
       - uses: actions/upload-artifact@v4
-        name: upload-artifact
+        id: upload-artifact
         with:
           path: payload.json
           name: payload-${{ github.sha }}.json
