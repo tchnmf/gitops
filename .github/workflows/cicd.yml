@@ -1,0 +1,48 @@
+name: CI + CD
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup
+        run: echo Hello, world!
+    
+  DeployDev:
+    name: Deploy to Dev 
+    if: github.event_name == 'pull_request'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: development
+      #url: 'http://dev.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
+    
+  DeployStaging:
+    name: Deploy to Staging 
+    if: github.event_name == 'pull_request'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: staging
+      #url: 'http://test.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
+            
+  DeployProd:
+    name: Deploy to Production 
+    needs: [DeployStaging]
+    runs-on: ubuntu-latest
+    environment: 
+      name: production
+      url: 'http://www.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying! 
