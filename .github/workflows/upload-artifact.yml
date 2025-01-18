@@ -1,0 +1,20 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Upload artifact
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'Json payload'
+        required: true
+
+jobs:
+  parse-payload:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ inputs.payload }}" | jq > payload.json
+          cat payload.json | jq
