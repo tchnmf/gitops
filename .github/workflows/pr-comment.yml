@@ -17,12 +17,12 @@ jobs:
     - name: Retrieve artifact URL 
       run: |
         export URL=$(echo '${{ github.event.issue.body }}' | tail -1)
+        export JSON=$(echo '${{ github.event.issue.body }}' | sed -n '/^```/,/^```/ p')
+
+
         echo $URL
-        curl -O -L \
-         -H "Accept: application/vnd.github+json" \
-         -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-         -H "X-GitHub-Api-Version: 2022-11-28" \
-         $URL
+        echo $JSON | jq
+
         
 #    - name: Show artifact URL 
 #      run: |
