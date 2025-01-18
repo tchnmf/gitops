@@ -3,6 +3,8 @@ on:
   pull_request:
     types:
     - closed
+    branches:
+    - main
 
 jobs:
   build:
@@ -20,31 +22,19 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: development
-      #url: 'http://dev.myapp.com'
+      url: 'busybox/'
     steps:
       - name: Deploy
         run: echo Promote Development 
     
   DeployStaging:
     name: Deploy to Staging 
-    if: github.event_name == 'pull_request'
+    if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true
     needs: [build]
     runs-on: ubuntu-latest
     environment: 
       name: staging
-      #url: 'http://test.myapp.com'
+      url: 'busybox/'
     steps:
       - name: Deploy
         run: echo Promote Staging 
-            
-  DeployProd:
-    name: Deploy to Production
-    if: github.event_name == 'pull_request'
-    needs: [DeployStaging]
-    runs-on: ubuntu-latest
-    environment: 
-      name: production
-      url: 'http://www.myapp.com'
-    steps:
-      - name: Deploy
-        run: echo Promote Production 
