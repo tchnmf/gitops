@@ -16,9 +16,9 @@ jobs:
     steps:
     - name: Retrieve artifact URL 
       run: |
-        ARTIFACT_URL="$(echo '${{ github.event.issue.body }}' | tail -1)"
-        export ARTIFACT_URL=$ARTIFACT_URL
+        grep ^https '${{ github.event.issue.body }}'
         
-    - name: Show artifact URL 
-      run: |
-        echo $ARTIFACT_URL
+        
+#    - name: Show artifact URL 
+#      run: |
+#        echo $ARTIFACT_URL
