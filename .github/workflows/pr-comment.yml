@@ -16,8 +16,8 @@ jobs:
     steps:
     - name: Retrieve artifact URL 
       run: |
-        ARTIFACT_URL=$(echo '${{ github.event.issue.body }}' | tail -1)
-        export ARTIFACT_URL
+        ARTIFACT_URL="$(echo '${{ github.event.issue.body }}' | tail -1)"
+        export "$ARTIFACT_URL"
 
         echo $ARTIFACT_URL
         curl -L \
