@@ -44,5 +44,5 @@ jobs:
           ARTIFACT_URL: ${{needs.upload-artifact.outputs.artifact-url}}
 
         run: | 
-          echo "Artifact ID from previous job is $ARIFACT_ID"
-          echo "Artifact URL from previous job is $ARIFACT_URL" 
+          echo "Artifact ID from previous job is $ARTIFACT_ID"
+          echo "Artifact URL from previous job is $ARTIFACT_URL" 
