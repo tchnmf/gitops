@@ -13,8 +13,12 @@ on:
         type: string
 
 jobs:
-  parse-payload:
+  upload-artifact:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.artifact-upload-step.outputs.artifact-id }}
+      artifact-url: ${{ steps.artifact-upload-step.outputs.artifact-url }}
+
     steps:
       - run: |
           echo '${{ inputs.payload }}' | jq > payload.json
@@ -30,3 +34,15 @@ jobs:
         run: |
           echo 'Artifact ID is ${{ steps.upload-artifact.outputs.artifact-id }}'          
           echo 'Artifact URL is ${{ steps.upload-artifact.outputs.artifact-url }}'
+          
+  submit-pr:
+    runs-on: ubuntu-latest
+    needs: upload-artifact
+    steps:
+      - env:
+          ARTIFACT_ID: ${{needs.upload-artifact.outputs.artifact-id}}
+          ARTIFACT_URL: ${{needs.upload-artifact.outputs.artifact-url}}
+
+        run: | 
+          echo "Artifact ID from previous job is $ARIFACT_ID"
+          echo "Artifact URL from previous job is $ARIFACT_URL" 
