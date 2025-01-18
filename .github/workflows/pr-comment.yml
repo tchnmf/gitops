@@ -15,4 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run a multi-line script 
-      run: echo ${{ github.event.comment.body }}
+      run: |
+        echo  "Comment body: ${{ github.event.comment.body }}"
+        echo  "PR body: ${{ github.event.issue.body }}"
