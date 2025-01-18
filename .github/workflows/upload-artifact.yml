@@ -25,7 +25,3 @@ jobs:
         with:
           path: payload.json
           name: payload-${{ github.sha }}.json
-          
-      - name: Return artifact data  
-        run: |
-          echo '${{ artifact_url }}' 
