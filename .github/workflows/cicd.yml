@@ -1,7 +1,8 @@
 name: CI + CD
 on:
   pull_request:
-    branches: [ main ]
+    types:
+    - closed
 
 jobs:
   build:
@@ -14,7 +15,7 @@ jobs:
     
   DeployDev:
     name: Deploy to Dev 
-    if: github.event_name == 'pull_request'
+    #if: github.event_name == 'pull_request'
     needs: [build]
     runs-on: ubuntu-latest
     environment: 
@@ -37,7 +38,8 @@ jobs:
         run: echo I am deploying! 
             
   DeployProd:
-    name: Deploy to Production 
+    name: Deploy to Production
+    if: github.event_name == 'pull_request'
     needs: [DeployStaging]
     runs-on: ubuntu-latest
     environment: 
