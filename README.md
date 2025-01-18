@@ -1,3 +1,5 @@
 # GitOps
 
-### v1.0
+### v1.0.1
+
+- `cicd.yaml`
