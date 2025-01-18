@@ -17,5 +17,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ inputs.payload }}" | jq > payload.json
+          echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
