@@ -14,7 +14,15 @@ jobs:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-    - name: Run a multi-line script 
+    - name: Retrieve artifact URL 
       run: |
-        artifact_url=$(echo '${{ github.event.issue.body }}' | tail -1)
-        echo $artifact_url
+        ARTIFACT_URL=$(echo '${{ github.event.issue.body }}' | tail -1)
+        export ARTIFACT_URL
+        
+    - name: Download artifact URL
+      run: | 
+        curl -L \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        $ARTIFACT_URL
