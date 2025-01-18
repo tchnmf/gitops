@@ -29,4 +29,4 @@ jobs:
       - name: Output artifact ID
         run: |
           echo 'Artifact ID is ${{ steps.upload-artifact.outputs.artifact-id }}'          
-          echo 'Artifact URL is ${{ steps.upload-artifact.outputs.artifact-id }}'
+          echo 'Artifact URL is ${{ steps.upload-artifact.outputs.artifact-url }}'
