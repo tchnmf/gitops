@@ -25,3 +25,8 @@ jobs:
         with:
           path: payload.json
           name: payload-${{ github.sha }}.json
+          
+      - name: Output artifact ID
+        run: |
+          echo 'Artifact ID is ${{ steps.upload-artifact.outputs.artifact-id }}'          
+          echo 'Artifact URL is ${{ steps.upload-artifact.outputs.artifact-id }}'
