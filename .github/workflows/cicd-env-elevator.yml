@@ -22,10 +22,13 @@ jobs:
       run: |
         export JSON=$(echo '${{ github.event.issue.body }}' | sed -n '/^```/,/^```/ p' | sed '/^```/ d')
         echo $JSON | jq > payload.json
-        cat payload.json
+        cat payload.json | jq
+        
         export PAYLOAD=$(cat payload.json | jq -c)
         echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
-        
+
+        echo "# Payload"
+        echo $PAYLOAD
 
   trigger_promotion_staging:
     needs: cicd_elevate_environment
