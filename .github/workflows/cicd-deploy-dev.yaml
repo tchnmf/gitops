@@ -1,8 +1,9 @@
 on:
   pull_request:
     types:
-#      - closed
+      - closed
       - labeled
+      - edited
 
 jobs:
   deploy_dev:
