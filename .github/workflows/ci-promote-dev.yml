@@ -20,8 +20,8 @@ jobs:
       - run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
-          export deployment=$(echo ${{ inputs.payload }} | jq  '.[0].deployment)
-          echo "deployment=$deployment" >> $GITHUB_ENV
+          #export deployment=$(echo ${{ inputs.payload }} | jq  '.[0].deployment)
+          #echo "deployment=$deployment" >> $GITHUB_ENV
           
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
