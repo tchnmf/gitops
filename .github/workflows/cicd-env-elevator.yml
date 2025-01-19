@@ -5,7 +5,7 @@ name: CI Elevator
 # Controls when the workflow will run
 on:
   issue_comment:
-    types: [created]
+    types: [created, edited]
 
 # should not elevate if PR is not merged
 jobs:
@@ -13,7 +13,8 @@ jobs:
     # This job only runs for pull request comments
     name: PR comment
     #if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true &&  contains(github.event.comment.body, 'promote')
-    if: github.event.pull_request.merged == true && contains(github.event.comment.body, 'bump')
+    #if: github.event.pull_request.merged == true
+    if: contains(github.event.comment.body, '/bump')
     runs-on: ubuntu-latest
     steps:
     - name: Retrieve artifact URL 
