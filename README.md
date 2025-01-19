@@ -3,6 +3,7 @@
 ### v1.0.4
 
 ## `cicd-promote-dev.yaml`
+- `on: workflow_call`
 - Checkout branch `dev`
 - Update kustomizaiton.yaml
 - Create Pull Request against `dev`
