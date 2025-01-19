@@ -32,13 +32,16 @@ jobs:
 
   trigger_promotion_staging:
     needs: cicd_elevate_environment
-    #if: contains(github.event.pull_request.labels.*.name, 'dev')
+    if: contains(github.event.pull_request.labels.*.name, 'dev')
     uses: ./.github/workflows/cicd-promote-staging.yaml
     with:
       payload: "${{ needs.cicd_elevate_environment.outputs.payload }}" 
     secrets: inherit
       
-  #trigger_promotion_production:
-  #  needs: cicd_elevate_environment
-  #  if: contains(github.event.pull_request.labels.*.name, 'staging')
-  #  uses: ./github/workflows/cicd-promote-production.yaml
+#  trigger_promotion_production:
+#    needs: cicd_elevate_environment
+#    #if: contains(github.event.pull_request.labels.*.name, 'staging')
+#    uses: ./.github/workflows/cicd-promote-production.yaml
+#    with:
+#      payload: "${{ needs.cicd_elevate_environment.outputs.payload }}" 
+#    secrets: inherit
