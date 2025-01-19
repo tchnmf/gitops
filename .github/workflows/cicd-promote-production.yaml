@@ -1,0 +1,26 @@
+name: staging promote
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'Json payload'
+        required: true
+        type: string
+
+jobs:
+  submit-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+      
+      - name: Parse payload
+        run: |
+          echo '${{ inputs.payload }}' | jq > payload.json
+          cat payload.json | jq
