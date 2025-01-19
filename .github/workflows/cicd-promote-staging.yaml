@@ -22,5 +22,6 @@ jobs:
       
       - name: Parse payload
         run: |
-          echo '${{ inputs.payload }}' | jq > payload.json
-          cat payload.json | jq
+          echo ${{ inputs.payload }}
+          #echo '${{ inputs.payload }}' | jq > payload.json
+          #cat payload.json | jq
