@@ -62,7 +62,7 @@ jobs:
           commit-message: "[cicd] automated change - image update"
           reviewers: lfocorp
           delete-branch: true
-          title: '[CICD] Promote to dev'
+          title: '[cicd | dev] promote deployment'
           token: ${{ secrets.GH_TOKEN }}
           labels: cicd, dev
           body-path: pr-body.md
