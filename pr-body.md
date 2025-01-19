@@ -14,7 +14,7 @@ Payload:
 [
   {
     "image_id": "registry.io/cd-gitops-demo-image-a",
-    "image_tag": "cf9854",
+    "image_tag": "cfa854",
     "image_placeholder": "",
     "deployment": "busybox"
   },
