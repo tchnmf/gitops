@@ -2,62 +2,69 @@ name: staging promote
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'Json payload'
+        required: true
+        type: string
   workflow_call:
     inputs:
       payload:
         description: 'Json payload'
         required: true
         type: string
-
+        
 jobs:
-  submit-pull-request:
+  kustomize-submit-pr:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout staging branch
         uses: actions/checkout@v4
         with:
           ref: 'main'
       
       - name: Parse payload
         run: |
-          echo '${{ inputs.payload }}' | jq > payload.json
-          cat payload.json | jq
+          echo '${{ inputs.payload }}' | jq > /tmp/payload.json
+          cat /tmp/payload.json | jq
 
-      - name: PR body
+      - name: Update kustomization.yaml
+        run: ./release-update.sh /tmp/payload.json ./deployments/busybox/deployment_id/staging/kustomization.yaml
+
+      - name: Pull Request body
         run: |
-          touch pr-body.md
+          touch /tmp/pr-body.md
           
-          cat <<'EOF' > pr-body.md
+          cat <<'EOF' > /tmp/pr-body.md
           Release PR in `staging` environment
 
           `/<deployment>/deployment_id/staging/`
 
-          Deployment to `staging` will take place when this PR is merged 
+          Deployment to `staging1` will take place when this PR is merged 
           
-          Comment to promote these changes to **production** environment:
-          - `bump/`
-          - `promote/`
+          Comment to promote these changes to **staging** environment:
+          - `/bump`
+          - `/promote`
 
           Payload:
           
           EOF
 
-          echo '```json' >> pr-body.md
-          cat payload.json | jq >> pr-body.md
-          echo '```' >> pr-body.md
- 
+          echo '```json' >> /tmp/pr-body.md
+          cat /tmp/payload.json | jq >> /tmp/pr-body.md
+          echo '```' >> /tmp/pr-body.md
           
       # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           branch: cicd/bump-staging
-          commit-message: "[cicd | staging ] automated change <deployment> image update "
+          commit-message: "[cicd] image change -  deployment <name>"
           reviewers: lfocorp
           delete-branch: true
-          title: '[cicd | staging ] promote deployment'
+          title: '[cicd | staging] promote deployment <name>'
           token: ${{ secrets.GH_TOKEN }}
           labels: cicd, staging
-          body-path: pr-body.md
+          body-path: /tmp/pr-body.md
