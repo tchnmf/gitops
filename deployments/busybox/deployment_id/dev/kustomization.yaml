@@ -6,7 +6,7 @@ resources:
 images:
   - name: busybox-api-image
     newName: registry.io/cd-gitops-demo-image-a
-    newTag: "0.44"
+    newTag: "cf9854"
   - name: cd-demo-b-image-placeholder
     newName: registry.io/cd-gitops-demo-image-b
-    newTag: 10.11
+    newTag: v1.0.4
