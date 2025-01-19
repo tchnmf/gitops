@@ -1,4 +1,4 @@
-name: dev1 promote | submit pr
+name: dev1 promote
 
 # Controls when the workflow will run
 on:
