@@ -9,7 +9,7 @@ on:
 
 # should not elevate if PR is not merged
 jobs:
-  pr_elevate:
+  cicd_elevate_environment:
     # This job only runs for pull request comments
     name: PR comment
     #if: contains(github.event.comment.body, '/bump') && github.event.issue.pull_request.merged_at != ''
