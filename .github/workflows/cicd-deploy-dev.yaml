@@ -1,0 +1,14 @@
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  deploy_dev:
+    if: contains(github.event.pull_request.labels.*.name, 'dev') && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    environment: 
+      name: development
+    steps:
+      - name: Deploy to Dev
+        run: echo Promote Development
