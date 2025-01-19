@@ -13,7 +13,7 @@ jobs:
     # This job only runs for pull request comments
     name: PR comment
     #if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true &&  contains(github.event.comment.body, 'promote')
-    if: contains(github.event.pull_request.labels.*.name, 'cicd') 
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - name: Retrieve artifact URL 
