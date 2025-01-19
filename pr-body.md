@@ -13,16 +13,15 @@ Payload:
 ```json
 [
   {
-    "image_id": "registry.io/cd-gitops-demo-image-a",
-    "image_tag": "cf9854",
-    "image_placeholder": "",
-    "deployment": "busybox"
+    "image_id": "harbor.whalebone.io/whalebone/cd-gitops-demo",
+    "image_tag": "main",
+    "image_placeholder": "image-placeholder",
+    "deployment": "deployments/cd-demo"
   },
   {
-    "image_id": "registry.io/cd-gitops-demo-image-b",
-    "image_tag": "v1.0.5-dev",
-    "image_placeholder": "cd-demo-b-image-placeholder",
-    "deployment": "busybox"
+    "image_id": "harbor.whalebone.io/whalebone/cd-gitops-demo-alt",
+    "image_tag": "1afch9",
+    "deployment": "deployments/cd-demo"
   }
 ]
 ```
