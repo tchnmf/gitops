@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Usage: 
+# Usage:
 #   release-update.sh payload.json /path/to/kustomization.yaml
 #
 
@@ -24,9 +24,10 @@ for item in $(cat $payload_file | jq -r '.[] | @base64'); do
 
    yq  ' (.images.[] |  select(.. == env(image_id)) | .newTag) = env(image_tag) ' $kustomize_file > ${kustomize_file}.tmp
    cp ${kustomize_file}.tmp ${kustomize_file}
-   
+
    yq   ' (.images.[] |  select(.. == env(image_ph)) | .newTag) = env(image_tag) ' $kustomize_file > ${kustomize_file}.tmp
    cp ${kustomize_file}.tmp ${kustomize_file}
 done
 
 yq $kustomize_file
+rm ${kustomize_file}.tmp
