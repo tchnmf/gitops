@@ -61,10 +61,10 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: cicd/bump-dev1
-          commit-message: "[cicd] automated change - image update"
+          commit-message: "[cicd] image change -  deployment <name>"
           reviewers: lfocorp
           delete-branch: true
-          title: '[cicd | dev] promote deployment'
+          title: '[cicd | dev] promote deployment <name>'
           token: ${{ secrets.GH_TOKEN }}
           labels: cicd, dev
           body-path: /tmp/pr-body.md
