@@ -1,3 +1,8 @@
+Release PR  
+
+`<environment>/<deployment>`
+
+```json
 [
   {
     "image_id": "registry.io/cd-gitops-demo-image-a",
@@ -12,3 +17,4 @@
     "deployment": "busybox"
   }
 ]
+```
