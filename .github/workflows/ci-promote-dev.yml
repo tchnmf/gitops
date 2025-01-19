@@ -21,7 +21,7 @@ jobs:
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
 
-          export "json_format=$(echo '${{ inputs.payload }}' | jq"
+          json_format=$(cat payload.json | jq )
           echo "json_format=$json_format" >> $GITHUB_ENV
           
       - name: Create Pull Request
