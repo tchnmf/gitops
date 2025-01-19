@@ -5,11 +5,8 @@ resources:
   - ../../base
 images:
   - name: busybox-api-image
-    newName: registry.hub.docker.com/library/busybox
+    newName: registry.io/cd-gitops-demo-image-a
     newTag: "0.44"
-  - name: busybox-db-image
-    newName: registry.hub.docker.com/library/postgres
+  - name: cd-demo-b-image-placeholder
+    newName: registry.io/cd-gitops-demo-image-b
     newTag: 10.11
-  - name: busybox-cache-image
-    newName: registry.hub.docker.com/library/redis
-    newTag: '4.5'
