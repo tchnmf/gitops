@@ -6,7 +6,7 @@ resources:
 images:
   - name: busybox-api-image
     newName: registry.hub.docker.com/library/busybox
-    newTag: "0.31-dev"
+    newTag: "0.66-dev"
   - name: busybox-db-image
     newName: registry.hub.docker.com/library/postgres
     newTag: 10.11
