@@ -14,7 +14,7 @@ jobs:
     name: PR comment
     #if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true &&  contains(github.event.comment.body, 'promote')
     #if: github.event.pull_request.merged == true
-    if: contains(github.event.comment.body, '/bump')
+    if: contains(github.event.comment.body, '/bump') && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
     - name: Retrieve artifact URL 
