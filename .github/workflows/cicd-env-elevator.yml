@@ -7,11 +7,12 @@ on:
   issue_comment:
     types: [created]
 
+# should not elevate if PR is not merged
 jobs:
-  pr_commented:
+  pr_elevate:
     # This job only runs for pull request comments
     name: PR comment
-    if: ${{ github.event.issue.pull_request }}
+    if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true &&  contains(fromJson('["bump", "promote"]'),github.event.issue.body)
     runs-on: ubuntu-latest
     steps:
     - name: Retrieve artifact URL 
