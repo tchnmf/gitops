@@ -5,8 +5,8 @@ on:
   push:
     paths-ignore:
       - '.github/**'
-  #issue_comment:
-  #  types: [created]
+  issue_comment:
+    types: [created]
 
 jobs:
   one:
