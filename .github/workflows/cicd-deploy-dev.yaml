@@ -1,8 +1,8 @@
 on:
   pull_request:
-    branches:
-    - 'release/**'
-    - '*'
+    #branches:
+   # - 'release/**'
+#    - '*'
     
 jobs:
   deploy_dev:
