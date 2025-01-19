@@ -19,9 +19,10 @@ jobs:
     - name: Parse JSON payload from PR
       run: |
         export JSON=$(echo '${{ github.event.issue.body }}' | sed -n '/^```/,/^```/ p' | sed '/^```/ d')
-        echo $JSON | jq | tee payload.json
+        echo $JSON | jq > payload.json
         cat payload.json
         export PAYLOAD=$(cat payload.json | jq -c)
+        echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
         
    # - name: Export Json Payload
    #   run: |
