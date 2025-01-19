@@ -20,7 +20,7 @@ jobs:
         with:
           ref: 'dev'
       
-      - id: Parse payload
+      - name: Parse payload
         run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
