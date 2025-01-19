@@ -24,17 +24,19 @@ jobs:
         run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
-          
+
+      # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           branch: cicd/bump-dev1
+          commit-message: "[cicd] automated change - image update"
+          reviewers: lfocorp
           delete-branch: true
           title: '[CICD] Promote to dev'
           token: ${{ secrets.GH_TOKEN }}
-          labels: |
-            cicd
-            dev
+          labels: cicd, dev
+          #body-path	
           body: |
             Release PR
             
