@@ -15,6 +15,8 @@ jobs:
     #if: contains(github.event.comment.body, '/bump') && github.event.issue.pull_request.merged_at != ''
     if: contains(fromJSON('["/bump", "/promote"]'), github.event.comment.body) && github.event.issue.pull_request.merged_at != ''
     runs-on: ubuntu-latest
+    outputs:
+      payload: ${{ env.PAYLOAD }}
     steps:
     - name: Parse JSON payload from PR
       run: |
@@ -24,9 +26,13 @@ jobs:
         export PAYLOAD=$(cat payload.json | jq -c)
         echo "PAYLOAD=$PAYLOAD" >> $GITHUB_ENV
         
-   # - name: Export Json Payload
-   #   run: |
-   #   
-   #     export PAYLOAD=$(cat payload.json | jq -c)
-   #     echo "PAYLOAD=$PAYLOAD >> $GITHUB_ENV
-   #     echo "$PAYLOAD"
+
+  trigger_promotion_staging:
+    needs: cicd_elevate_environment
+    if: contains(github.event.pull_request.labels.*.name, 'dev')
+    uses: cicd-promote-staging.yaml
+
+  trigger_promotion_staging:
+    needs: cicd_elevate_environment
+    if: contains(github.event.pull_request.labels.*.name, 'dev')
+    uses: cicd-promote-production.yaml   
