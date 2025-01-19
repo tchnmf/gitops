@@ -5,6 +5,7 @@ on:
 
 jobs:
   deploy_dev:
+    #if: contains(github.event.pull_request.labels.*.name, 'dev') && github.event.pull_request.merged == true
     if: contains(github.event.pull_request.labels.*.name, 'dev') && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     environment: 
