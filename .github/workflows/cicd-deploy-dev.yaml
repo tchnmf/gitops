@@ -1,7 +1,7 @@
 on:
   pull_request_target:
     branches:
-    - dev
+    - '/refs/heads/main'
     
 jobs:
   deploy_dev:
