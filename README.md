@@ -1,6 +1,6 @@
 # GitOps
 
-### v1.0.4
+### v1.0.5
 
 ## `cicd-promote-dev.yaml`
 - `on: workflow_call`
