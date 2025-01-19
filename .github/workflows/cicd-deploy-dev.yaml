@@ -2,10 +2,6 @@ on:
   pull_request_target:
     types:
       - closed
-      - labeled
-      - edited
-      - opened
-      - reopened
 
 jobs:
   deploy_dev:
