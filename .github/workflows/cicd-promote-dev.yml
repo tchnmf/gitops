@@ -28,9 +28,9 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          branch: cicd/bump-
+          branch: cicd/bump-dev1
           delete-branch: true
-          title: '[Example] Promote to dev'
+          title: '[CICD] Promote to dev'
           token: ${{ secrets.GH_TOKEN }}
           labels: |
             cicd
