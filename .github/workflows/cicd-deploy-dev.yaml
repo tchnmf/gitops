@@ -1,12 +1,16 @@
-name: dev1 promote
+name: dev1 deploy | dev
 
 # Controls when the workflow will run
 on:
   pull_request:
+    types:
+    - closed
 
 jobs:
   deploy_dev:
     runs-on: ubuntu-latest
+    environment:
+      name: development
     steps:
       - id: load
         run: |
