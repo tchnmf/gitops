@@ -20,7 +20,7 @@ jobs:
         with:
           ref: 'dev'
       
-      - id: load
+      - id: Parse deployment payload.json
         run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
@@ -36,12 +36,12 @@ jobs:
           title: '[CICD] Promote to dev'
           token: ${{ secrets.GH_TOKEN }}
           labels: cicd, dev
-          #body-path	
-          body: |
-            Release PR
-            
-            ```
-            ${{ inputs.payload }}
-            ```
+          body-path: payload.json
+    #      body: |
+      #      Release PR
+       #     
+         #   ```
+         #   ${{ inputs.payload }}
+          #  ```
             
           
