@@ -54,7 +54,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: cicd/bump-staging
-          commit-message: "[cicd] automated change - image update"
+          commit-message: "[cicd | staging ] automated change <deployment> image update "
           reviewers: lfocorp
           delete-branch: true
           title: '[CICD] Promote to staging'
