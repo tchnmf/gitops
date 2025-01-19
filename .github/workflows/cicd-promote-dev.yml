@@ -44,7 +44,7 @@ jobs:
 
           Deployment to `dev1` will take place when this PR is merged 
           
-          Comment to promote these changes to `staging` environment:
+          Comment to promote these changes to **staging** environment:
           - `/bump`
           - `/promote`
 
