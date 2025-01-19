@@ -16,7 +16,7 @@ on:
         type: string
         
 jobs:
-  submit-pull-request:
+  kustomize-submit-pr:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +29,9 @@ jobs:
         run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
+
+      - name: Update kustomization.yaml
+        run: ./release-update.sh ./payload.json ./deployments/busybox/deployment_id/dev/kustomization.yaml
 
       - name: Pull Request body
         run: |
@@ -53,8 +56,6 @@ jobs:
           cat payload.json | jq >> pr-body.md
           echo '```' >> pr-body.md
 
-      - name: Update kustomization.yaml
-        run: release-update.sh payload.json deployments/busybox/deployment_id/dev/kustomization.yaml
           
       # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
