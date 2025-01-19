@@ -12,7 +12,8 @@ jobs:
   pr_elevate:
     # This job only runs for pull request comments
     name: PR comment
-    if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true &&  contains(github.event.comment.body, 'promote')
+    #if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true &&  contains(github.event.comment.body, 'promote')
+    if: contains(github.event.pull_request.labels.*.name, 'cicd') &&  contains(github.event.comment.body, 'promote')
     runs-on: ubuntu-latest
     steps:
     - name: Retrieve artifact URL 
