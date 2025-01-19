@@ -57,7 +57,7 @@ jobs:
           commit-message: "[cicd | staging ] automated change <deployment> image update "
           reviewers: lfocorp
           delete-branch: true
-          title: '[CICD] Promote to staging'
+          title: '[cicd | staging ] promote deployment'
           token: ${{ secrets.GH_TOKEN }}
           labels: cicd, staging
           body-path: pr-body.md
