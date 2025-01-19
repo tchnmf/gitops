@@ -22,11 +22,12 @@ for item in $(cat $payload_file | jq -r '.[] | @base64'); do
 
    # if [ -z "$image_placeholder" ]; then
 
-   yq  ' (.images.[] |  select(.. == env(image_id)) | .newTag) = env(image_tag) ' $kustomize_file > /tmp/${kustomize_file}.tmp
-   cp /tmp/${kustomize_file}.tmp ${kustomize_file}
+   yq  ' (.images.[] |  select(.. == env(image_id)) | .newTag) = env(image_tag) ' $kustomize_file > ${kustomize_file}.tmp
+   cp ${kustomize_file}.tmp ${kustomize_file}
 
-   yq   ' (.images.[] |  select(.. == env(image_ph)) | .newTag) = env(image_tag) ' $kustomize_file > /tmp/${kustomize_file}.tmp
-   cp /tmp/${kustomize_file}.tmp ${kustomize_file}
+   yq   ' (.images.[] |  select(.. == env(image_ph)) | .newTag) = env(image_tag) ' $kustomize_file > ${kustomize_file}.tmp
+   cp ${kustomize_file}.tmp ${kustomize_file}
 done
 
 yq $kustomize_file
+rm ${kustomize_file}.tmp
