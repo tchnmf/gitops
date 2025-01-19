@@ -11,6 +11,27 @@ on:
         type: string
 
 jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: Parse payload to payload.json
+      run: |
+        echo "#### echo inputs.payload ####"
+        echo '${{ inputs.payload }}' | jq > payload.json
+        
+        jq -n '{ "include": "[]" }' > matrix.json
+        json_payload=$(cat payload.json | jq -c )
+        jq  --argjson payload $json_payload '. += { 'include': $payload }' matrix.json > matrix.json.tmp
+        mv matrix.json.tmp matrix.json
+        cat matrix.json | jq
+
+    - name: Set matrix data
+      id: set-matrix
+      run: |
+        echo "matrix=$(cat matrix.json | jq -c)" >> $GITHUB_OUTPUT
+        
   submit-pull-request:
     runs-on: ubuntu-latest
 
