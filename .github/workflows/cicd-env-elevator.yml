@@ -30,7 +30,7 @@ jobs:
   trigger_promotion_staging:
     needs: cicd_elevate_environment
     if: contains(github.event.pull_request.labels.*.name, 'dev')
-    uses: .github/workflows/cicd-promote-staging.yaml@main
+    uses: ./.github/workflows/cicd-promote-staging.yaml@main
     with:
       payload: "{{ needs.cicd_elevate_environment.outputs.payload"
 
