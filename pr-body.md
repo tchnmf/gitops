@@ -20,7 +20,7 @@ Payload:
   },
   {
     "image_id": "registry.io/cd-gitops-demo-image-b",
-    "image_tag": "v1.0.5-dev",
+    "image_tag": "v1.0.4-dev",
     "image_placeholder": "cd-demo-b-image-placeholder",
     "deployment": "busybox"
   }
