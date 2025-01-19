@@ -16,8 +16,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - run: |
+      
+      - id: load
+        run: |
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
           
@@ -30,12 +31,12 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           labels: |
             cicd
-            dev1
+            dev
           body: |
             Release PR
             
             ```
-            ${{ toJSON(inputs.payload) }}
+            ${{ inputs.payload }}
             ```
             
           
