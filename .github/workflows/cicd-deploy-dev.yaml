@@ -1,0 +1,13 @@
+name: dev1 promote
+
+# Controls when the workflow will run
+on:
+  pull_request:
+
+jobs:
+  deploy_dev:
+    runs-on: ubuntu-latest
+    steps:
+      - id: load
+        run: |
+          echo Deploying Dev
