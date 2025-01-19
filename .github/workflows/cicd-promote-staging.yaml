@@ -15,13 +15,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout dev branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           ref: 'main'
       
       - name: Parse payload
         run: |
-          echo ${{ inputs.payload }}
-          #echo '${{ inputs.payload }}' | jq > payload.json
-          #cat payload.json | jq
+          echo '${{ inputs.payload }}' | jq > payload.json
+          cat payload.json | jq
+
+      - name: PR body
+        run: |
+          touch pr-body.md
+          
+          cat <<'EOF' > pr-body.md
+          Release PR in `staging` environment
+
+          `/<deployment>/deployment_id/staging/`
+
+          Deployment to `staging` will take place when this PR is merged 
+          
+          Comment to promote these changes to `staging` environment:
+          - `bump/`
+          - `promote/`
+
+          Payload:
+          
+          EOF
+
+          echo '```json' >> pr-body.md
+          cat payload.json | jq >> pr-body.md
+          echo '```' >> pr-body.md
+ 
+          
+      # ToDo: Include deployment name in the pr branch name
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: cicd/bump-staging
+          commit-message: "[cicd] automated change - image update"
+          reviewers: lfocorp
+          delete-branch: true
+          title: '[CICD] Promote to staging'
+          token: ${{ secrets.GH_TOKEN }}
+          labels: cicd, staging
+          body-path: pr-body.md
