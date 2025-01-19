@@ -4,9 +4,9 @@ Release PR in `dev` environment
 
 Deployment to `dev1` will take place when this PR is merged 
 
-Comment to promote these changes to `staging` environment:
-- `bump/`
-- `promote/`
+Comment to promote these changes to **staging** environment:
+- `/bump`
+- `/promote`
 
 Payload:
 
@@ -20,7 +20,7 @@ Payload:
   },
   {
     "image_id": "registry.io/cd-gitops-demo-image-b",
-    "image_tag": "v1.0.5-dev",
+    "image_tag": "v1.0.4",
     "image_placeholder": "cd-demo-b-image-placeholder",
     "deployment": "busybox"
   }
