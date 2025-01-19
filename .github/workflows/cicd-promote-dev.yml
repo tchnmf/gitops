@@ -30,7 +30,9 @@ jobs:
           touch pr-body.md
           
           cat <<'EOF' > pr-body.md
-          Release PR            
+          Release PR  
+
+          `<environment>/<deployment>`
 
           EOF
 
