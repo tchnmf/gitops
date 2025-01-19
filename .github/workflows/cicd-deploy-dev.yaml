@@ -8,8 +8,8 @@ jobs:
     #if: contains(github.event.pull_request.labels.*.name, 'dev') && github.event.pull_request.merged == true
     #if: ${{ github.event.label.name == 'dev' }} && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    environment: 
-      name: development
+    #environment: 
+     # name: development
     steps:
       - name: Deploy to Dev
         run: echo Promote Development
