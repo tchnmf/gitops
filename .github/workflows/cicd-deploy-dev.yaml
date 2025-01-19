@@ -1,6 +1,5 @@
-name: dev1 deploy | dev
+name: dev1 deploy | dev-branch
 
-# Controls when the workflow will run
 on:
   pull_request:
     types:
@@ -8,10 +7,12 @@ on:
 
 jobs:
   deploy_dev:
+    if: contains(github.event.pull_request.labels.*.name, 'cicd') && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     environment:
       name: development
+    # ToDo: Parse event.pull-request body json code block to construct <cluster><app> for argocd
     steps:
-      - id: load
+      - id: setup
         run: |
           echo Deploying Dev
