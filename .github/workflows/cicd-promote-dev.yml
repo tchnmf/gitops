@@ -28,13 +28,12 @@ jobs:
       - name: PR body
         run: |
           touch pr-body.md
-          cat <<EOF > pr-body.md
+          
+          cat <<'EOF' > pr-body.md
           Release PR            
-          `<deployment>` `<env>`    
+
           EOF
-          echo '```' >> pr-body.md
-          cat payload.json | jq >> pr-body.md
-          echo '```' >> pr-body.md
+ 
           
       # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
