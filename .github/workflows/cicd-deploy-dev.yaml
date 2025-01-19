@@ -2,9 +2,11 @@ on:
   pull_request_target:
     branches:
     - '/refs/heads/dev'
+    - 'dev'
   pull_request:
     branches:
     - '/refs/heads/dev'
+    - 'dev'
     
 jobs:
   deploy_dev:
