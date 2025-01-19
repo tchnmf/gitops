@@ -30,7 +30,7 @@ jobs:
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
 
-      - name: PR body
+      - name: Pull Request body
         run: |
           touch pr-body.md
           
@@ -42,8 +42,8 @@ jobs:
           Deployment to `dev1` will take place when this PR is merged 
           
           Comment to promote these changes to `staging` environment:
-          - `bump/`
-          - `promote/`
+          - `/bump`
+          - `/promote`
 
           Payload:
           
@@ -52,7 +52,9 @@ jobs:
           echo '```json' >> pr-body.md
           cat payload.json | jq >> pr-body.md
           echo '```' >> pr-body.md
- 
+
+      - name: Update kustomization.yaml
+        run: release-update.sh payload.json deployments/busybox/deployment_id/dev/kustomization.yaml
           
       # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
