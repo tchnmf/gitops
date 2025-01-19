@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI Elevator
+name: CI Environment Elevator
 
 # Controls when the workflow will run
 on:
@@ -21,6 +21,7 @@ jobs:
         export JSON=$(echo '${{ github.event.issue.body }}' | sed -n '/^```/,/^```/ p' | sed '/^```/ d')
         echo $JSON | jq | tee payload.json
         cat payload.json
+        export PAYLOAD=$(cat payload.json | jq -c)
         
    # - name: Export Json Payload
    #   run: |
