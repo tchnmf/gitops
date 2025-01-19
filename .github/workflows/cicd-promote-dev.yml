@@ -58,7 +58,7 @@ jobs:
 
       - name: Cleanup files
         run: |
-          rm ./payload.json
+          rm ./payload.json ./pr-body.md
           
       # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
