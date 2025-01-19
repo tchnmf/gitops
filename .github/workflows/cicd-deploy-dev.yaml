@@ -1,8 +1,5 @@
 on:
   pull_request:
-    branches:
-    - refs/heads/dev
-
     
 jobs:
   deploy_dev:
@@ -13,4 +10,5 @@ jobs:
      # name: development
     steps:
       - name: Deploy to Dev
+        if: contains(fromJson('["dev"]'), github.base_ref) && github.head_ref !='staging'
         run: echo Promote Development
