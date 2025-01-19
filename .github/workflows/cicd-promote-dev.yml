@@ -25,6 +25,14 @@ jobs:
           echo '${{ inputs.payload }}' | jq > payload.json
           cat payload.json | jq
 
+          cat <<EOF > pr-body.md
+          Release PR            
+          `<deployment>` `<env>`    
+          EOF
+          echo "```json" >> pr-body.md
+          cat payload.json | jq >> pr-body.md
+          echo "```" >> pr-body.md
+          
       # ToDo: Include deployment name in the pr branch name
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
@@ -36,7 +44,7 @@ jobs:
           title: '[CICD] Promote to dev'
           token: ${{ secrets.GH_TOKEN }}
           labels: cicd, dev
-          body-path: payload.json
+          body-path: pr-body.md
     #      body: |
       #      Release PR
        #     
