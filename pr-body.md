@@ -1,3 +1,16 @@
+Release PR in `staging` environment
+
+`/<deployment>/deployment_id/staging/`
+
+Deployment to `staging` will take place when this PR is merged 
+
+Comment to promote these changes to `staging` environment:
+- `bump/`
+- `promote/`
+
+Payload:
+
+```json
 [
   {
     "image_id": "registry.io/cd-gitops-demo-image-a",
@@ -12,3 +25,4 @@
     "deployment": "busybox"
   }
 ]
+```
