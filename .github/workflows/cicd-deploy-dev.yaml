@@ -1,9 +1,11 @@
 on:
-  pull_request:
+  pull_request_target:
     types:
       - closed
       - labeled
       - edited
+    branches:
+    - 'dev'
 
 jobs:
   deploy_dev:
