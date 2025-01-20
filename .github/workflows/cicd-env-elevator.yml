@@ -12,8 +12,7 @@ jobs:
   cicd_elevate_environment:
     # This job only runs for pull request comments
     name: Trigger promotion
-    #if: contains(github.event.comment.body, '/bump') && github.event.issue.pull_request.merged_at != ''
-    if: contains(fromJSON('["/bump", "/promote"]'), github.event.comment.body) && github.event.issue.pull_request.merged_at != ''
+    if: contains(fromJSON('["/bump", "/promote"]'), github.event.comment.body)  && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     outputs:
       payload: ${{ env.PAYLOAD }}
